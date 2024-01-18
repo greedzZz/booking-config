@@ -12,9 +12,9 @@ spring:
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-            - name: CircuitBreaker
+            - name: Hystrix
               args:
-                name: security-service
+                name: security-service-filter
                 fallbackuri: forward:/orderFallBack
         - id: user-service
           uri: lb://user
@@ -23,9 +23,9 @@ spring:
           filters:
             - RewritePath=/user-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-            - name: CircuitBreaker
+            - name: Hystrix
               args:
-                name: user-service
+                name: user-service-filter
                 fallbackuri: forward:/orderFallBack
         - id: hotel-service
           uri: lb://hotel
@@ -34,9 +34,9 @@ spring:
           filters:
             - RewritePath=/hotel-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-            - name: CircuitBreaker
+            - name: Hystrix
               args:
-                name: hotel-service
+                name: hotel-service-filter
                 fallbackuri: forward:/orderFallBack
       discovery:
         locator:
