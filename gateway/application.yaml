@@ -12,6 +12,7 @@ spring:
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+          default-filters:
             - name: Hystrix
               args:
                 name: security-service-filter
@@ -23,6 +24,7 @@ spring:
           filters:
             - RewritePath=/user-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+          default-filters:
             - name: Hystrix
               args:
                 name: user-service-filter
@@ -34,6 +36,7 @@ spring:
           filters:
             - RewritePath=/hotel-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+          default-filters:
             - name: Hystrix
               args:
                 name: hotel-service-filter
