@@ -6,21 +6,21 @@ spring:
     gateway:
       routes:
         - id: security-service
-          uri: lb://SECURITY-SERVICE
+          uri: lb://security
           predicates:
             - Path=/security/**
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
         - id: user-service
-          uri: lb://USER-SERVICE
+          uri: lb://user
           predicates:
             - Path=/user-service/**
           filters:
             - RewritePath=/user-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
         - id: hotel-service
-          uri: lb://HOTEL-SERVICE
+          uri: lb://hotel
           predicates:
             - Path=/hotel-service/**
           filters:
