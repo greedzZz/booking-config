@@ -12,6 +12,10 @@ spring:
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+            - name: CircuitBreaker
+              args:
+                name: security-service
+                fallbackuri: forward:/fallback
         - id: user-service
           uri: lb://user
           predicates:
@@ -19,6 +23,10 @@ spring:
           filters:
             - RewritePath=/user-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+            - name: CircuitBreaker
+              args:
+                name: user-service
+                fallbackuri: forward:/fallback
         - id: hotel-service
           uri: lb://hotel
           predicates:
@@ -26,6 +34,10 @@ spring:
           filters:
             - RewritePath=/hotel-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+            - name: CircuitBreaker
+              args:
+                name: hotel-service
+                fallbackuri: forward:/fallback
       discovery:
         locator:
           enabled: true
@@ -39,4 +51,10 @@ logging:
     reactor.ipc.netty: DEBUG
     reactor.netty: DEBUG
 
-
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
