@@ -8,39 +8,31 @@ spring:
         - id: security-service
           uri: lb://security
           predicates:
-            - Path=/security/**
+            - Path=/security/**,/api-docs/**
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-          default-filters:
-            - name: Hystrix
-              args:
-                name: security-service-filter
-                fallbackuri: forward:/orderFallBack
         - id: user-service
           uri: lb://user
           predicates:
-            - Path=/user-service/**
+            - Path=/user-service/**,/api-docs/**
           filters:
             - RewritePath=/user-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-          default-filters:
-            - name: Hystrix
-              args:
-                name: user-service-filter
-                fallbackuri: forward:/orderFallBack
         - id: hotel-service
           uri: lb://hotel
           predicates:
-            - Path=/hotel-service/**
+            - Path=/hotel-service/**,/api-docs/**
           filters:
             - RewritePath=/hotel-service(?<segment>/?.*), $\{segment}
             - TokenPreFilter
-          default-filters:
-            - name: Hystrix
-              args:
-                name: hotel-service-filter
-                fallbackuri: forward:/orderFallBack
+        - id: wallet-service
+          uri: lb://wallet
+          predicates:
+            - Path=/api-docs/**
+          filters:
+            - RewritePath=/security(?<segment>/?.*), $\{segment}
+            - TokenPreFilter
       discovery:
         locator:
           enabled: true
@@ -54,10 +46,14 @@ logging:
     reactor.ipc.netty: DEBUG
     reactor.netty: DEBUG
 
-hystrix:
-  command:
-    fallbackcmd:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+springdoc:
+  swagger-ui:
+    urls:
+      - url: /user/api-docs
+        name: "User service"
+      - url: /hotel/api-docs
+        name: "Hotel service"
+      - url: /wallet/api-docs
+        name: "Wallet service"
+      - url: /security/api-docs
+        name: "Security service"
