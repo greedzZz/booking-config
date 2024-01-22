@@ -10,43 +10,22 @@ spring:
           predicates:
             - Path=/security/**,/api-docs/**
           filters:
-            - name: RewritePath
-              args:
-                regexp: /security(?<segment>/?.*)
-                replacement: $\{segment}
-            - name: TokenPreFilter
-            - name: CircuitBreaker
-              args:
-                name: security
-                fallbackUri: forward:/fallback/message
+            - RewritePath=/security(?<segment>/?.*), $\{segment}
+            - TokenPreFilter
         - id: user-service
           uri: lb://user
           predicates:
             - Path=/user-service/**,/api-docs/**
           filters:
-            - name: RewritePath
-              args:
-                regexp: /user-service(?<segment>/?.*)
-                replacement: $\{segment}
-            - name: TokenPreFilter
-            - name: CircuitBreaker
-              args:
-                name: user-service
-                fallbackUri: forward:/fallback/message
+            - RewritePath=/user-service(?<segment>/?.*), $\{segment}
+            - TokenPreFilter
         - id: hotel-service
           uri: lb://hotel
           predicates:
             - Path=/hotel-service/**,/api-docs/**
           filters:
-            - name: RewritePath
-              args:
-                regexp: /hotel-service(?<segment>/?.*)
-                replacement: $\{segment}
-            - name: TokenPreFilter
-            - name: CircuitBreaker
-              args:
-                name: hotel-service
-                fallbackUri: forward:/fallback/message
+            - RewritePath=/hotel-service(?<segment>/?.*), $\{segment}
+            - TokenPreFilter
         - id: wallet-service
           uri: lb://wallet
           predicates:
