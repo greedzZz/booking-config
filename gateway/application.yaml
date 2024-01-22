@@ -17,7 +17,7 @@ spring:
             - name: TokenPreFilter
             - name: Hystrix
               args:
-                name: fallbackCommand
+                name: fallbackcmd
                 fallbackUri: forward:/fallback/message
         - id: user-service
           uri: lb://user
@@ -31,7 +31,7 @@ spring:
             - name: TokenPreFilter
             - name: Hystrix
               args:
-                name: fallbackCommand
+                name: fallbackcmd
                 fallbackUri: forward:/fallback/message
         - id: hotel-service
           uri: lb://hotel
@@ -45,7 +45,7 @@ spring:
             - name: TokenPreFilter
             - name: Hystrix
               args:
-                name: fallbackCommand
+                name: fallbackcmd
                 fallbackUri: forward:/fallback/message
         - id: wallet-service
           uri: lb://wallet
