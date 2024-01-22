@@ -12,6 +12,12 @@ spring:
           filters:
             - RewritePath=/security(?<segment>/?.*), $\{segment}
             - TokenPreFilter
+        - id: security-service-docs
+          uri: lb://security
+          predicates:
+            - Path=/api-docs/**
+          filters:
+            - RewritePath=/security(?<segment>/?.*), $\{segment}
         - id: user-service
           uri: lb://user
           predicates:
