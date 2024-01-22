@@ -17,7 +17,7 @@ spring:
             - name: TokenPreFilter
             - name: CircuitBreaker
               args:
-                name: fallbackcmd
+                name: security
                 fallbackUri: forward:/fallback/message
         - id: user-service
           uri: lb://user
@@ -31,7 +31,7 @@ spring:
             - name: TokenPreFilter
             - name: CircuitBreaker
               args:
-                name: fallbackcmd
+                name: user-service
                 fallbackUri: forward:/fallback/message
         - id: hotel-service
           uri: lb://hotel
@@ -45,7 +45,7 @@ spring:
             - name: TokenPreFilter
             - name: CircuitBreaker
               args:
-                name: fallbackcmd
+                name: hotel-service
                 fallbackUri: forward:/fallback/message
         - id: wallet-service
           uri: lb://wallet
