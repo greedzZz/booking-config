@@ -15,7 +15,7 @@ spring:
                 regexp: /security(?<segment>/?.*)
                 replacement: $\{segment}
             - name: TokenPreFilter
-            - name: Hystrix
+            - name: CircuitBreaker
               args:
                 name: fallbackcmd
                 fallbackUri: forward:/fallback/message
@@ -29,7 +29,7 @@ spring:
                 regexp: /user-service(?<segment>/?.*)
                 replacement: $\{segment}
             - name: TokenPreFilter
-            - name: Hystrix
+            - name: CircuitBreaker
               args:
                 name: fallbackcmd
                 fallbackUri: forward:/fallback/message
@@ -43,7 +43,7 @@ spring:
                 regexp: /hotel-service(?<segment>/?.*)
                 replacement: $\{segment}
             - name: TokenPreFilter
-            - name: Hystrix
+            - name: CircuitBreaker
               args:
                 name: fallbackcmd
                 fallbackUri: forward:/fallback/message
